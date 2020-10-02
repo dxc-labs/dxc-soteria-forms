@@ -1,0 +1,22 @@
+{
+    "title": "COVID-19 Questionnaire",
+    "subtitle": "Daily questionnaire",
+    "questions": [
+        {
+            "type": "checkboxes",
+            "title": "Are you experiencing any of the following symptoms?",
+            "responses": [
+                "Dry Cough",
+                "Headache"
+            ]
+        },
+        {
+            "type": "checkboxes",
+            "title": "Are you experiencing any of the following symptoms?",
+            "responses": [
+                "Dry Cough",
+                "Headache"
+            ]
+        }
+    ]
+}

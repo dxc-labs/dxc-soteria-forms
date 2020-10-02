@@ -1,0 +1,482 @@
+{
+	"info": {
+		"_postman_id": "7b366b23-9be5-45a7-8dbf-5521ffa58038",
+		"name": "Forms",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API-01-POST-forms-success-check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "56c8ec1a-1d1b-4e3c-9839-a9842c94b2a2",
+						"exec": [
+							"pm.test(request.name+\" \"+\"General Response Check\", function () { ",
+							"    pm.response.to.have.status(201);",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(request.name+\" \"+\"Response must be valid and have a body\", function () {",
+							"     // assert that the response has a valid JSON body",
+							"     pm.response.to.be.withBody;",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "tenant",
+						"value": "forms",
+						"type": "text"
+					},
+					{
+						"key": "x-api-key",
+						"value": "{{API_KEY}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sk\": \"named-form-test\",\r\n    \"form\": {\r\n        \"title\": \"Join Survey\",\r\n        \"questions\": [\r\n            {\r\n                \"options\": {\r\n                    \"field\": \"Provide your email to join Project Soteria survey\",\r\n                    \"key\": 1\r\n                },\r\n                \"type\": \"Typographys\"\r\n            },\r\n            {\r\n                \"options\": {\r\n                    \"name\": \"email\",\r\n                    \"field\": \"E-mail\",\r\n                    \"type\": \"email\",\r\n                    \"key\": 2,\r\n                    \"required\": true\r\n                },\r\n                \"type\": \"TextFields\"\r\n            },\r\n            {\r\n                \"options\": {\r\n                    \"field\": \"Join Survey\",\r\n                    \"type\": \"submit\",\r\n                    \"key\": 3\r\n                },\r\n                \"type\": \"SubmitButton\"\r\n            }\r\n        ]\r\n    },\r\n    \"category1\": \"default\",\r\n    \"mandatedDays\": \"default\",\r\n    \"id\": \"JoinSurvey-Test\",\r\n    \"category2\": \"default\",\r\n    \"country\": \"default\",\r\n    \"name\": \"JoinSurvey-Test\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{API_BASE_URL}}/forms",
+					"protocol": "https",
+					"host": [
+						"{{API_BASE_URL}}"
+					],
+					"path": [
+						"forms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-02-PATCH-forms-success-check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "80f09117-2a8b-4706-9aab-c29e2f8cd211",
+						"exec": [
+							"pm.test(request.name+\" \"+\"General Response Check\", function () { \r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(request.name+\" \"+\"Response must be valid and have a body\", function () {\r",
+							"     // assert that the response has a valid JSON body\r",
+							"     pm.response.to.be.withBody;\r",
+							"});\r",
+							"\r",
+							"pm.test(request.name+\" \"+\"Response body with correct return values \", function () { \r",
+							"    var expected_results ={ \"form\": {\r",
+							"            \"title\": \"Join Survey Test\",\r",
+							"            \"questions\": [\r",
+							"                {\r",
+							"                    \"options\": {\r",
+							"                        \"field\": \"Provide your email to join HPE Safety Suite survey\",\r",
+							"                        \"key\": 1\r",
+							"                    },\r",
+							"                    \"type\": \"Typographys\"\r",
+							"                },\r",
+							"                {\r",
+							"                    \"options\": {\r",
+							"                        \"name\": \"email\",\r",
+							"                        \"field\": \"E-mail\",\r",
+							"                        \"type\": \"email\",\r",
+							"                        \"key\": 2,\r",
+							"                        \"required\": true\r",
+							"                    },\r",
+							"                    \"type\": \"TextFields\"\r",
+							"                },\r",
+							"                {\r",
+							"                    \"options\": {\r",
+							"                        \"field\": \"Join Survey\",\r",
+							"                        \"type\": \"submit\",\r",
+							"                        \"key\": 3\r",
+							"                    },\r",
+							"                    \"type\": \"SubmitButton\"\r",
+							"                }\r",
+							"            ]\r",
+							"        },\r",
+							"        \"mandatedDays\": \"default\",\r",
+							"        \"category2\": \"default\",\r",
+							"        \"country\": \"default\",\r",
+							"        \"name\": \"JoinSurvey\"\r",
+							"    }\r",
+							"    pm.expect(pm.response.json().Attributes).to.deep.include(expected_results);\r",
+							"    \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{API_KEY}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"sk\": \"named-form-test\",\r\n  \"form\": {\r\n    \"title\": \"Join Survey Test\",\r\n    \"questions\": [\r\n      {\r\n        \"options\": {\r\n          \"field\": \"Provide your email to join HPE Safety Suite survey\",\r\n          \"key\": 1\r\n        },\r\n        \"type\": \"Typographys\"\r\n      },\r\n      {\r\n        \"options\": {\r\n          \"name\": \"email\",\r\n          \"field\": \"E-mail\",\r\n          \"type\": \"email\",\r\n          \"key\": 2,\r\n          \"required\": true\r\n        },\r\n        \"type\": \"TextFields\"\r\n      },\r\n      {\r\n        \"options\": {\r\n          \"field\": \"Join Survey\",\r\n          \"type\": \"submit\",\r\n          \"key\": 3\r\n        },\r\n        \"type\": \"SubmitButton\"\r\n      }\r\n    ]\r\n  },\r\n  \"category1\": \"default\",\r\n  \"mandatedDays\": \"default\",\r\n  \"id\": \"JoinSurvey-Test\",\r\n  \"category2\": \"default\",\r\n  \"country\": \"default\",\r\n  \"name\": \"JoinSurvey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{API_BASE_URL}}/forms/{{name}}/{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{API_BASE_URL}}"
+					],
+					"path": [
+						"forms",
+						"{{name}}",
+						"{{location}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-03-DELETE-forms-InvalidApiKey-check Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "56709dce-df84-4d61-b3a5-b1578aae3a04",
+						"exec": [
+							"pm.test(request.name+\" \"+\"General Response Check\", function () { ",
+							"    pm.response.to.have.status(403);",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(request.name+\" \"+\"Response must be valid and have a body\", function () {",
+							"     // assert that the response has a valid JSON body",
+							"     pm.response.to.be.withBody;",
+							"});",
+							"var expected_results = { \"message\": \"Forbidden\" };",
+							"pm.test(request.name+\" \"+\"Response body with correct return values \", function () {",
+							" pm.expect(pm.response.json()).to.deep.include(expected_results);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-api-key",
+						"type": "text",
+						"value": "InvalidApiKey"
+					},
+					{
+						"key": "tenant",
+						"type": "text",
+						"value": "forms"
+					}
+				],
+				"url": {
+					"raw": "https://{{API_BASE_URL}}/forms/{{name}}/{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{API_BASE_URL}}"
+					],
+					"path": [
+						"forms",
+						"{{name}}",
+						"{{location}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-04-GET-forms-NoData-check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a478ce10-5ac5-4e14-9a25-81a4b066e4c1",
+						"exec": [
+							"pm.test(request.name+\" \"+\"General Response Check\", function () { ",
+							"    pm.response.to.have.status(404);",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(request.name+\" \"+\"Response must be valid and have a body\", function () {",
+							"     // assert that the response has a valid JSON body",
+							"     pm.response.to.be.withBody;",
+							"});",
+							"",
+							"pm.test(request.name+\" \"+\"Response body with correct return values \", function () {",
+							"    var expected_results = \"No data found\";",
+							"",
+							"    pm.expect(pm.response.json()).to.deep.include(expected_results);",
+							"    ",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "tenant",
+						"value": "forms",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{API_BASE_URL}}/forms/{{name}}/invalidLocation",
+					"protocol": "https",
+					"host": [
+						"{{API_BASE_URL}}"
+					],
+					"path": [
+						"forms",
+						"{{name}}",
+						"invalidLocation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-05-GET-forms-success-check Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9667487-7db1-4ebd-bfcb-e7db376299c2",
+						"exec": [
+							"pm.test(request.name+\" \"+\"General Response Check\", function () { ",
+							"    pm.response.to.have.status(200);",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(request.name+\" \"+\"Response must be valid and have a body\", function () {",
+							"     // assert that the response has a valid JSON body",
+							"     pm.response.to.be.withBody;",
+							"});",
+							"",
+							"pm.test(request.name+\" \"+\"Response body with correct return values \", function () {",
+							"    var expected_results = {\"sk\": \"named-form-test\",  \"form\": {",
+							"            \"title\": \"Join Survey Test\",",
+							"            \"questions\": [",
+							"                {",
+							"                    \"options\": {",
+							"                        \"field\": \"Provide your email to join HPE Safety Suite survey\",",
+							"                        \"key\": 1",
+							"                    },",
+							"                    \"type\": \"Typographys\"",
+							"                },",
+							"                {",
+							"                    \"options\": {",
+							"                        \"name\": \"email\",",
+							"                        \"field\": \"E-mail\",",
+							"                        \"type\": \"email\",",
+							"                        \"key\": 2,",
+							"                        \"required\": true",
+							"                    },",
+							"                    \"type\": \"TextFields\"",
+							"                },",
+							"                {",
+							"                    \"options\": {",
+							"                        \"field\": \"Join Survey\",",
+							"                        \"type\": \"submit\",",
+							"                        \"key\": 3",
+							"                    },",
+							"                    \"type\": \"SubmitButton\"",
+							"                }",
+							"            ]",
+							"        },",
+							"        \"mandatedDays\": \"default\",",
+							"        \"category2\": \"default\",",
+							"        \"country\": \"default\",",
+							"        \"name\": \"JoinSurvey\"",
+							"    };",
+							"",
+							"    pm.expect(pm.response.json()).to.deep.include(expected_results);",
+							"    ",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "tenant",
+						"value": "forms",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{API_BASE_URL}}/forms/{{name}}/{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{API_BASE_URL}}"
+					],
+					"path": [
+						"forms",
+						"{{name}}",
+						"{{location}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-06-DELETE-forms-success-check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "80b60f81-cd2d-4ad6-9961-55a02711ae96",
+						"exec": [
+							"pm.test(request.name+\" \"+\"General Response Check\", function () { ",
+							"    pm.response.to.have.status(200);",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(request.name+\" \"+\"Response must be valid and have a body\", function () {",
+							"     // assert that the response has a valid JSON body",
+							"     pm.response.to.be.withBody;",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-api-key",
+						"value": "{{API_KEY}}",
+						"type": "text"
+					},
+					{
+						"key": "tenant",
+						"value": "forms",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{API_BASE_URL}}/forms/{{name}}/{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{API_BASE_URL}}"
+					],
+					"path": [
+						"forms",
+						"{{name}}",
+						"{{location}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "734f8b71-c2e7-4c44-83f9-ae73b249adaa",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "eb550290-7054-4c70-a5f1-be8122ec5f66",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "803e5c8d-7e6a-4598-a9dd-3a9d0dc1c552",
+			"key": "location",
+			"value": "named-form-test"
+		},
+		{
+			"id": "2fd90265-d346-45f7-ae46-844a876aa561",
+			"key": "name",
+			"value": "JoinSurvey-Test"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

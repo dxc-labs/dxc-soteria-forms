@@ -1,0 +1,60 @@
+  AWSTemplateFormatVersion: 2010-09-09
+  Description: Soteria component stack
+  Transform: AWS::Serverless-2016-10-31
+
+  Parameters:
+    CanaryDeploymentType:
+      Type: String
+      Description: Deployment Preference Type
+      Default: "Canary10Percent5Minutes"
+  #!#########################################################################################
+  #! Resources:
+  #!#########################################################################################
+  Resources:
+    LambdaStorageStack:
+      Type: AWS::CloudFormation::Stack
+      Properties:
+        TemplateURL: storage-lambda.yaml
+        Parameters:
+          UserDomainName:
+            Fn::ImportValue:
+                !Join
+                    - '-'
+                    - - !Select [0, !Split ['-', !Ref AWS::StackName]]
+                      - !Select [1, !Split ['-', !Ref AWS::StackName]]
+                      - !Select [2, !Split ['-', !Ref AWS::StackName]]
+                      - 'domains-UserDomainName'
+          StackName: !Sub "${AWS::StackName}"
+          OpenApiBucket:
+            !Join
+              - '-'
+              - - !Select [0, !Split ['-', !Ref AWS::StackName]]
+                - !Select [1, !Split ['-', !Ref AWS::StackName]]
+                - !Select [2, !Split ['-', !Ref AWS::StackName]]
+                - 'api-openapi/forms'
+          ApiDomainName:
+            Fn::ImportValue:
+                !Join
+                    - '-'
+                    - - !Select [0, !Split ['-', !Ref AWS::StackName]]
+                      - !Select [1, !Split ['-', !Ref AWS::StackName]]
+                      - !Select [2, !Split ['-', !Ref AWS::StackName]]
+                      - 'api-domainName'
+          CognitoUserPoolArn: !Sub
+          - 'arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/${poolId}'
+          - poolId:
+              Fn::ImportValue:
+                !Join
+                    - '-'
+                    - - !Select [0, !Split ['-', !Ref AWS::StackName]]
+                      - !Select [1, !Split ['-', !Ref AWS::StackName]]
+                      - !Select [2, !Split ['-', !Ref AWS::StackName]]
+                      - 'identity-user-pool-id'
+          CanaryDeploymentType: !Ref CanaryDeploymentType
+
+  Outputs:
+    FormsApi:
+      Value:
+        Fn::GetAtt: [LambdaStorageStack, Outputs.FormsApi]
+      Export:
+        Name: !Sub "${AWS::StackName}-api"

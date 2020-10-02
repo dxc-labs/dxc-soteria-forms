@@ -1,0 +1,93 @@
+{
+    "title": "Forms Engine - demonstration with sample form",
+    "subtitle": "Project Soteria",
+    "questions": [
+        {
+            "type": "Checkboxes",
+            "title": "Are you experiencing any of the following symptoms?",
+            "options": [
+                "Dry Cough",
+                "Headache",
+                "Fever"
+            ],
+            "key": 1
+        },
+        {
+            "options": {
+                "key": 2,
+                "field": "Name",
+                "name": "name",
+                "type": "text",
+                "required": true
+            },
+            "type": "TextFields"
+        },
+        {
+            "options": {
+                "key": 4,
+                "field": "E-Mail ID",
+                "name": "email",
+                "type": "email",
+                "required": true
+            },
+            "type": "TextFields"
+        },
+        {
+            "options": {
+                "key": 10,
+                "field": "Date",
+                "name": "date",
+                "type": "date",
+                "required": true
+            },
+            "type": "DateTime"
+        },
+        {
+            "options": {
+                "key": 12,
+                "field": "Time",
+                "name": "time",
+                "type": "time",
+                "required": true
+            },
+            "type": "DateTime"
+        },
+        {
+            "options": {
+                "key": 13,
+                "field": "Gender",
+                "radioOption": [
+                    "Female",
+                    "Male"
+                ],
+                "name": "female",
+                "required": true
+            },
+            "type": "RadioSelect"
+        },
+        {
+            "options": {
+                "key": 14,
+                "field": "Temperature",
+                "min": 36,
+                "max": 40,
+                "step": 0.1,
+                "marks": 0.5,
+                "name": "Temp",
+                "type": "number",
+                "minInput": 36,
+                "maxInput": 40,
+                "stepInput": 0.1
+            },
+            "type": "LinearScale"
+        },
+        {
+            "options": {
+                "key": 1,
+                "field": "Click SUBMIT to see the form data"
+            },
+            "type": "Typographys"
+        }
+    ],
+    "buttonName": "Submit"
+}
